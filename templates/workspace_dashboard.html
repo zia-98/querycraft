@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Workspace | QueryCraft</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-page">
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+      <h3><i class="fas fa-briefcase"></i> Projects</h3>
+      <div class="user-pill"><i class="fas fa-user-circle"></i> {{ user }}</div>
+      <nav>
+        <ul>
+          {% for p in projects %}
+            <li>
+              <a href="{{ url_for('workspace_open', name=p.name) }}">{% if current_project == p.name %}• {% endif %}{{ p.name }}</a>
+          <form action="{{ url_for('workspace_delete', name=p.name) }}" method="POST" class="inline" onsubmit="return confirm('Delete project {{p.name}}?')">
+                <button type="submit" class="ml-8">Delete</button>
+              </form>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+      {% if current_project %}
+      <hr>
+      <h3><i class="fas fa-table"></i> Tables</h3>
+      <ul>
+        {% if tables %}
+          {% for t in tables %}
+            <li><a href="{{ url_for('workspace_table', table_name=t) }}">{{ t }}</a></li>
+          {% endfor %}
+        {% else %}
+          <li>No tables yet</li>
+        {% endif %}
+      </ul>
+      {% endif %}
+      <hr>
+      <form action="{{ url_for('workspace_create') }}" method="POST">
+        <input type="text" name="name" placeholder="New project name" required>
+        <input type="text" name="description" placeholder="Description (optional)">
+        <button type="submit">Create Project</button>
+      </form>
+      <hr>
+      <form action="{{ url_for('workspace_import') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="dbfile" accept=".db" required>
+        <input type="text" name="name" placeholder="Project name (optional)">
+        <button type="submit">Import .db</button>
+      </form>
+      <hr>
+      <a href="{{ url_for('mode_select') }}">Back to Modes</a>
+      <br>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </aside>
+
+    <main class="glass-container">
+      <h2><i class="fas fa-user-circle"></i> Hello, {{ user }}</h2>
+      {% if current_project %}
+        <h3>Project: {{ current_project }}</h3>
+  <p class="mt-6 mb-16"><a href="{{ url_for('dashboard') }}"><i class="fas fa-database"></i> Open Query Builder</a></p>
+
+        {% if viewer_table %}
+          <section>
+            <h3><i class="fas fa-table"></i> Table Viewer: {{ viewer_table }}</h3>
+            <div class="flex-row mb-10">
+              <span>Showing {{ viewer_rows|length }} of {{ total_rows }} rows</span>
+              <form action="{{ url_for('workspace_table', table_name=viewer_table) }}" method="get" class="inline-flex gap-8 items-center">
+                <label>Page size</label>
+                <input type="number" name="page_size" value="{{ page_size }}" min="1" max="200" class="w-80">
+                <input type="hidden" name="page" value="1">
+                <button type="submit">Apply</button>
+              </form>
+              <a href="{{ url_for('workspace_table', table_name=viewer_table, page=page, page_size=page_size) }}" class="ml-auto"><i class="fas fa-rotate"></i> Refresh</a>
+            </div>
+
+            {% if viewer_headers %}
+            <div class="table-scroll">
+              <table class="tv-table">
+                <thead>
+                  <tr>
+                    {% for h in viewer_headers %}<th>{{ h }}</th>{% endfor %}
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for r in viewer_rows %}
+                    <tr>
+                      {% for c in r %}<td>{{ c }}</td>{% endfor %}
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            {% else %}
+              <p>No data.</p>
+            {% endif %}
+
+            <div class="pager">
+              {% if has_prev %}
+                <a class="btn" href="{{ url_for('workspace_table', table_name=viewer_table, page=page-1, page_size=page_size) }}">Previous</a>
+              {% else %}
+                <span class="btn disabled">Previous</span>
+              {% endif %}
+              <span>Page {{ page }} of {{ last_page }}</span>
+              {% if has_next %}
+                <a class="btn" href="{{ url_for('workspace_table', table_name=viewer_table, page=page+1, page_size=page_size) }}">Next</a>
+              {% else %}
+                <span class="btn disabled">Next</span>
+              {% endif %}
+            </div>
+          </section>
+        {% else %}
+          <p>Select a table from the left to view rows.</p>
+        {% endif %}
+      {% else %}
+        <p>Select or create a project from the sidebar to begin.</p>
+      {% endif %}
+    </main>
+  </div>
+</body>
+</html>

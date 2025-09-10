@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup | QueryCraft</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="centered-bg">
+    <div class="glass-container">
+        <h2>Create Account</h2>
+        <form action="/signup" method="post">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Choose an email" required>
+            <input type="password" name="password" placeholder="Create a password" required>
+            <button type="submit">Sign Up</button>
+            <p>Already have an account? <a href="/login">Log in</a></p>
+        </form>
+    </div>
+</body>
+</html>

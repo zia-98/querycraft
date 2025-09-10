@@ -1,0 +1,354 @@
+:root {
+  /* Color palette */
+  --primary-color: #2a2f54; /* sidebar navy */
+  --secondary-color: #3b82f6; /* accent blue for buttons/links */
+  --secondary-hover: #2563eb;
+
+  --background-color: #0f2027; /* overall background */
+  --panel-bg: linear-gradient(135deg, #324a80 0%, #263b68 100%); /* main panel gradient */
+  --homepage-gradient: linear-gradient(to right, #667eea, #764ba2); /* legacy landing gradient */
+  --mode-select-gradient: linear-gradient(135deg, #1f3b73 0%, #385ad8 100%); /* uplifting blue */
+  --bg1: #0f2027;
+  --bg2: #203a43;
+  --bg3: #2c5364;
+  --background-gradient: linear-gradient(to right, var(--bg1), var(--bg2), var(--bg3));
+
+  --card-color: #2a2f54; /* solid panels / sidebar */
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --card-bg: rgba(255, 255, 255, 0.10); /* cards in main panel */
+
+  --text-color: #ffffff;
+  --muted-text-color: #cfd8e3;
+
+  --link-color: var(--text-color);
+  --link-hover-color: var(--secondary-color);
+
+  --on-primary-color: #ffffff;
+  --btn-disabled-bg: rgba(255, 255, 255, 0.20);
+
+  --border-color: #dddddd;
+  --table-row-border: #444444;
+  --table-header-bg: rgba(255, 255, 255, 0.10);
+  --table-row-alt-bg: rgba(255, 255, 255, 0.05);
+  --row-hover-bg: rgba(0, 198, 255, 0.15);
+
+  --shadow-color-1: rgba(0, 0, 0, 0.10);
+  --shadow-color-2: rgba(0, 0, 0, 0.37);
+  --shadow-color-3: rgba(0, 0, 0, 0.25);
+
+  /* Typography */
+  --font-family-base: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-size-base: 16px;
+  --font-size-heading: 1.75rem;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  color: var(--text-color);
+  background: var(--background-gradient);
+  background-color: var(--background-color);
+  min-height: 100vh;
+  display: block;
+}
+
+/* Page-scoped backgrounds */
+body.home-landing {
+  background: var(--homepage-gradient);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+body.mode-select-page {
+  background: var(--mode-select-gradient);
+}
+
+.centered-bg {
+    background-size: cover;
+    background-position: center;
+}
+
+/* Center auth pages (login/signup) */
+body.centered-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.dashboard-layout {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  background: var(--panel-bg); /* main panel background */
+}
+
+/* Sticky header utility (used in some pages) */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  background-color: var(--card-color);
+  z-index: 1000;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.sidebar {
+  width: 300px;
+  background-color: var(--card-color);
+  color: var(--text-color);
+  padding: 20px;
+  box-shadow: 0 4px 30px var(--shadow-color-1);
+  overflow-y: auto;
+}
+
+.sidebar h3 {
+  margin-top: 0;
+  font-size: var(--font-size-heading);
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 10px 0;
+}
+
+.sidebar ul li a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.sidebar ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Make main content flexible inside dashboard layout */
+.dashboard-layout .glass-container {
+  width: auto;
+  max-width: none;
+  flex: 1 1 auto;
+  margin-left: 0;
+  padding: 20px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.glass-container {
+  background: var(--card-bg);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 var(--shadow-color-2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border);
+  width: 90%;
+  max-width: 400px;
+  color: var(--text-color);
+  text-align: center;
+}
+.glass-container h2, .glass-container h3 { color: var(--text-color); }
+.dashboard-layout .glass-container h2, .dashboard-layout .glass-container h3 { text-align: center; }
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+  width: 93%;
+    padding: 10px;
+    margin: 12px 0;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    color: var(--text-color);
+  background: var(--card-bg);
+}
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+  color: var(--muted-text-color);
+}
+textarea {
+  width: 93%;
+  background: var(--card-bg);
+  margin: 12px 0;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  color: var(--text-color);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Placeholder visibility on dark backgrounds */
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.75);
+  opacity: 1; /* Firefox */
+}
+/* Firefox 18- */
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  color: rgba(255, 255, 255, 0.75);
+  opacity: 1;
+}
+/* Firefox 19+ */
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.75);
+  opacity: 1;
+}
+/* Internet Explorer 10-11 */
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
+/* Microsoft Edge (legacy) */
+input::-ms-input-placeholder,
+textarea::-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
+/* WebKit */
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+button {
+    padding: 10px 25px;
+    margin-top: 10px;
+  background: var(--primary-color);
+    color: var(--on-primary-color);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.05s ease;
+}
+
+button:hover {
+  background: var(--secondary-hover);
+}
+
+button:active { transform: translateY(1px); }
+
+a {
+    color: var(--link-color);
+    text-decoration: underline;
+}
+table {
+    width: 100%;
+    border: 1px solid var(--border-color);
+    border-collapse: collapse;
+    margin-top: 10px;
+  background: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 18px 0 var(--shadow-color-1);
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--table-row-border);
+}
+
+th {
+    background-color: var(--table-header-bg);
+}
+i {
+    margin-right: 8px;
+}
+a:hover {
+    color: var(--link-hover-color);
+}
+
+/* Sidebar user pill */
+.user-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--glass-bg);
+  padding: 8px 12px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+/* Mode selection cards */
+.mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 900px) { .mode-grid { grid-template-columns: 1fr; } }
+.mode-card { display:block; background: rgba(255,255,255,0.12); border: 1px solid var(--glass-border); border-radius: 16px; padding: 28px; color: var(--text-color); text-align: left; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; text-decoration: none; box-shadow: 0 10px 30px var(--shadow-color-3); }
+.mode-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px var(--shadow-color-3); background: rgba(255,255,255,0.16); }
+.mode-card h3 { margin: 0 0 8px 0; font-size: var(--font-size-heading); }
+.mode-card p { margin: 0; opacity: 0.9; color: var(--muted-text-color); }
+.mode-card i { font-size: 28px; margin-right: 10px; }
+
+/* Table Viewer styles */
+.table-scroll { max-height: 60vh; overflow: auto; border: 1px solid var(--glass-border); border-radius: 8px; }
+.tv-table { width: 100%; border-collapse: collapse; }
+.tv-table thead th { position: sticky; top: 0; background: var(--table-header-bg); }
+.tv-table tbody tr:nth-child(odd) { background: rgba(255,255,255,0.05); }
+.tv-table tbody tr:hover { background: rgba(0,198,255,0.15); }
+.tv-table th, .tv-table td { padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.10); }
+.pager { display:flex; align-items:center; gap:12px; margin-top:12px; }
+.pager .btn { background: var(--primary-color); color: var(--on-primary-color); padding: 6px 12px; border-radius: 6px; text-decoration: none; }
+.pager .btn:hover { background: var(--secondary-hover); }
+.pager .btn.disabled { background: rgba(255,255,255,0.2); pointer-events: none; }
+
+/* Logout link */
+.logout-link { display: inline-block; margin-top: 20px; text-decoration: none; color: var(--secondary-color); font-weight: bold; }
+.logout-link:hover { color: var(--primary-color); }
+.logout-link i { margin-right: 5px; }
+
+/* Utilities for replacing inline styles */
+.section-note { margin: 10px 0; }
+.inline-form { display: inline-block; }
+.inline { display: inline; }
+.inline-flex { display: inline-flex; }
+.flex-row { display: flex; align-items: center; gap: 10px; }
+.items-center { align-items: center; }
+.gap-8 { gap: 8px; }
+.mb-10 { margin-bottom: 10px; }
+.ml-8 { margin-left: 8px; }
+.ml-auto { margin-left: auto; }
+.w-80 { width: 80px; }
+.mt-6 { margin-top: 6px; }
+.mb-16 { margin-bottom: 16px; }
+.mt-16 { margin-top: 16px; }
+.container-lg { max-width: 960px; width: 95%; }
+
+/* Index page styles moved from inline */
+.nav { position: absolute; top: 20px; right: 30px; }
+.nav a { margin-left: 20px; text-decoration: none; font-size: medium; font-family: var(--font-family-base); font-weight: bold; color: var(--text-color); }
+.nav a:hover { color: var(--secondary-color); opacity: 0.85; }
+.center-container { flex-grow: 1; display: flex; justify-content: center; align-items: center; }
+.typewriter h1 { overflow: hidden; border-right: .15em solid var(--secondary-color); white-space: nowrap; margin: 0 auto; letter-spacing: .1em; animation: typing 3s steps(30, end), blink-caret .75s step-end infinite; font-size: 2.8rem; }
+@keyframes typing { from { width: 0 } to { width: 100% } }
+@keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--secondary-color) } }
+
+/* Scope main panel controls to use accent color and card backgrounds */
+.dashboard-layout .glass-container form {
+  background: var(--card-bg);
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px 0 var(--shadow-color-1);
+}
+.dashboard-layout .glass-container button {
+  background: var(--secondary-color);
+  color: var(--text-color);
+}
+.dashboard-layout .glass-container button:hover {
+  background: var(--secondary-hover);
+}
+
+/* Auth pages (login/signup): match app accent for primary action buttons */
+body.centered-bg .glass-container button {
+  background: var(--secondary-color);
+  color: var(--text-color);
+}
+body.centered-bg .glass-container button:hover {
+  background: var(--secondary-hover);
+}
+

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Select Mode | QueryCraft</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+</head>
+<body class="centered-bg mode-select-page">
+  <div class="glass-container container-lg">
+    <h2><i class="fas fa-toggle-on"></i> Choose how you want to work</h2>
+    <div class="mode-grid">
+      <a class="mode-card" href="{{ url_for('sample_mode') }}">
+        <h3><i class="fas fa-flask"></i> Work with Sample Data</h3>
+        <p>Practice SQL on a prebuilt SQLite database with tables like students, courses, and enrollments.</p>
+      </a>
+      <a class="mode-card" href="{{ url_for('workspace_mode') }}">
+        <h3><i class="fas fa-briefcase"></i> Work with Your Own Data</h3>
+        <p>Create and manage multiple projects. Each project has its own SQLite .db file and tables.</p>
+      </a>
+    </div>
+  <p class="mt-16"><a href="{{ url_for('logout') }}">Log out</a></p>
+  </div>
+</body>
+</html>

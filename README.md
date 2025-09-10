@@ -1,4 +1,4 @@
-<b>QueryCraft<b>
+#QueryCraft
 
 QueryCraft is a Flask-based SQL query execution and management app. It allows users to log in, write and run SQL queries, view results, and manage query history.
 
@@ -70,3 +70,4 @@ Contributions, issues, and feature requests are welcome!
 📜 License
 
 This project is licensed under the MIT License.
+
